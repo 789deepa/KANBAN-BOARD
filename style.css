@@ -1,0 +1,60 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+}
+html{
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+:root {
+    --bg-color: rgb(29, 25, 25);
+    --bg-button-color: rgb(56, 47, 47);
+
+    /* text colors */
+    --primary-text-color: rgb(241, 235, 235);
+
+    /* padding var */
+    --nav-padding: 1rem 2rem;
+    --section-padding:1rem 2rem;
+    --padding-s: 0.5rem;
+    --padding-m: 0.75rem;
+    --padding-l: 1rem;
+    --padding-xl: 2rem;
+    --padding-xxl:3rem;
+
+    /* border radius */
+
+    --border-radius-s: 0.5rem;
+    --border-radius-m: 0.75rem;
+    --border-radius-l: 1rem;
+    --border-radius-xl: 1.25rem;
+    --border-radius-xxl: 2rem;
+
+}
+
+body{
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+}
+
+nav{
+    padding: var(--nav-padding);
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav button {
+    background-color: var(--bg-button-color);
+    border:none;
+    outline: none;
+    color: var(--primary-text-color);
+    padding : var(--padding-m) var(--padding-l);
+    cursor: pointer;
+    border-radius: var(--border-radius-m);
+}
