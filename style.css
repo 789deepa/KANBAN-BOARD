@@ -12,8 +12,12 @@ html{
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 :root {
+
+    /* background color */
     --bg-color: rgb(29, 25, 25);
-    --bg-button-color: rgb(56, 47, 47);
+    --bg-button-color: rgba(103, 83, 83, 0.13);
+    --bg-task-color: #2a2a2a;
+    --delete-color: rgb(196, 12, 12);
 
     /* text colors */
     --primary-text-color: rgb(241, 235, 235);
@@ -34,14 +38,17 @@ html{
     --border-radius-l: 1rem;
     --border-radius-xl: 1.25rem;
     --border-radius-xxl: 2rem;
-
 }
 
 body{
     background-color: var(--bg-color);
     color: var(--primary-text-color);
 }
-
+main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 nav{
     padding: var(--nav-padding);
     display:flex;
@@ -56,5 +63,74 @@ nav button {
     color: var(--primary-text-color);
     padding : var(--padding-m) var(--padding-l);
     cursor: pointer;
-    border-radius: var(--border-radius-m);
+    border-radius: var(--border-radius-s);
+}
+
+section{
+    
+    padding: var(--section-padding);
+    display: flex;
+    /*  covers the remaining area in parent*/
+    flex-grow: 1;   
+    justify-content: space-between;
+    
+    gap: var(--padding-xl);
+}
+
+section .task-column {
+    background-color: var(--bg-button-color);   
+    flex-grow:1;
+    padding: var(--padding-l);
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-l); 
+    border-radius: var(--border-radius-s);
+    transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1)
+}
+
+section .task-column.hover-over {
+    border: 2px dashed var(--primary-text-color);
+    scale: 1.05;
+}
+
+section .task-column .heading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   
+}
+
+section .task-column  .task {
+    background-color: var(--bg-task-color);
+    padding: var(--padding-m);
+    border-radius : var(--border-radius-s);
+    display:flex;
+    flex-direction: column;
+    cursor: grab;
+}
+
+section .task-column .task button {
+    align-self: flex-end; 
+    cursor: pointer;
+    padding: var(--padding-s);
+    border-radius: var(--border-radius-s);
+    border:none;
+    outline: none;
+    background-color: var(--delete-color);
+    color: var(--primary-text-color);
+}
+
+.modal {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top:0;
+    left:0;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.modal .center {
+    
 }
