@@ -14,7 +14,7 @@ html{
 :root {
 
     /* background color */
-    --bg-color: rgb(29, 25, 25);
+    --bg-color: rgb(34, 30, 30);
     --bg-button-color: rgba(103, 83, 83, 0.13);
     --bg-task-color: #2a2a2a;
     --delete-color: rgb(196, 12, 12);
@@ -126,11 +126,49 @@ section .task-column .task button {
     width: 100vw;
     top:0;
     left:0;
-    display: flex;
+    display: none;
     align-items:center;
     justify-content: center;
 }
 
-.modal .center {
+.modal.active{
+    display:flex;
+}
+
+.modal .bg{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(34, 31, 31, 0.111);
+    backdrop-filter:blur(5px) ;
     
+}
+.modal .center {
+    background-color: var(--bg-color);
+    padding: var(--padding-xxl);
+    border-radius: var(--border-radius-s);
+    display: flex;
+    flex-direction: column;
+    gap : var(--padding-s);
+    z-index: 10;
+}
+.modal .center input, .modal .center textarea, .modal .center select {
+    background-color: var(--bg-task-color);
+    border:none;
+    outline:none;
+    color: var(--primary-text-color);
+    padding: var(--padding-m);
+    border-radius: var(--border-radius-s);
+}
+
+.modal .center button {
+    background-color: var(--bg-task-color);
+        border: none;
+        outline: none;
+        color: var(--primary-text-color);
+        padding: var(--padding-m) var(--padding-l);
+        cursor: pointer;
+        border-radius: var(--border-radius-m);
+        width:fit-content;
+        align-self: center;
 }

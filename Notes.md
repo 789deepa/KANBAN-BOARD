@@ -46,3 +46,17 @@ Now Main feature is DONE.
 ADD NEW TASK 
 Create a new div 'modal' for 'add new task'
 two divs in modal -bg, -center
+
+Basic stylings 
+In modal bg {
+    we'll add backdrop-filter = blur(3px) 
+    to make background blur
+}
+
+Modal should be shown after clicking on add new task... one more click, modal should vanish
+
+Done
+
+Created sample task using div element in DOM.
+Made new task draggable.
+Now all task in col can be dragged into other cols.
