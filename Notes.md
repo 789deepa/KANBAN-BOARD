@@ -54,9 +54,18 @@ In modal bg {
 }
 
 Modal should be shown after clicking on add new task... one more click, modal should vanish
-
 Done
 
 Created sample task using div element in DOM.
 Made new task draggable.
 Now all task in col can be dragged into other cols.
+
+Now We'll save the data in local storage.
+tasksData[col.id] = Array.from(tasks).map(t => { 
+                return {
+                    title: t.querySelector("h2").innerText,
+                    desc: t.querySelector("p").innerText
+                }
+            })
+created object.
+save this in local storage(convert tasksData into JSON.stringify(taskData))
