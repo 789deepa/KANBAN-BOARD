@@ -32,6 +32,13 @@ function addDragEventsOnColumn(column) {
         column.appendChild(dragElement);
         column.classList.remove("hover-over");
 
+        //Count Feature Logic
+        [todo, progress, done].forEach(col => {
+            const tasks = col.querySelectorAll(".task");
+            const count = col.querySelector(".right");
+
+            count.innerText = tasks.length;
+        })
     })
 }
 
