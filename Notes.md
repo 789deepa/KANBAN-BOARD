@@ -1,71 +1,159 @@
-![UI design](image.png)
+===============================
+KANBAN PROJECT — NOTES
+===============================
 
-Project divided into 2 parts. 
+1) PROJECT STRUCTURE
+--------------------
+This project was divided into two main parts:
 1. Navbar
-2. Columns
+2. Columns (To-Do, Progress, Done)
 
-Boiler plate html, css Done.
+Before anything else:
+- Made basic HTML structure
+- Linked CSS
+- Created main layout (nav + section)
 
-Nav - 
-2 divs, left and right (includes text + button)
 
-section -
-1 div for board
+2) NAVBAR SETUP
+----------------
+Navbar = two sides:
+- Left → "Kanban" text
+- Right → "Add New Task" button
 
-Made root var in style.css
+Simple two-div structure inside <nav>.
 
-made task class inside heading for first col
 
-To move button at the end of box
-align-self: flex-end 
+3) COLUMNS SETUP
+-----------------
+Inside <section class="board">, I created:
+- #todo
+- #progress
+- #done
 
-How do we highlight the column in dragging process(progress col): 
-- add in html 'draggable="true"'
-- give style(highlight) to column (progress-here)
-- add event listeners to progress column (dragenter and dragleave)
-  also add class hover-over 
-  'progress.addEventListener("dragenter", function (e) {
+Each column has:
+- heading (title + count)
+- space for tasks
+
+Also created :root variables in CSS for colors.
+
+
+4) TASK STYLING BASICS
+-----------------------
+Made a .task class for each task.
+
+Example structure:
+<div draggable="true" class="task">
+    <h2>Title</h2>
+    <p>Description</p>
+    <button>Delete</button>
+</div>
+
+To move delete button to bottom:
+align-self: flex-end;
+
+
+5) DRAG & DROP — CORE LOGIC
+----------------------------
+Goal: highlight column while dragging over it.
+
+Steps:
+1. Add draggable="true" to tasks
+2. Make a .hover-over class in CSS for highlighting
+3. Add event listeners:
+   - dragenter → highlight column
+   - dragleave → remove highlight
+   - dragover → allow dropping
+   - drop → drop task in column
+
+Example:
+column.addEventListener("dragenter", function(e){
     this.classList.add("hover-over");
-  })'
-- we remove the highlight by adding dragleave event, and remove the class 'hover-over'
+});
 
-We can write this for every col, but It'll be repetative.
-So
-Make a function with 2 events (dragenter, dragleave)
+dragover MUST contain e.preventDefault()
+because browser blocks dropping by default.
 
-Add 'Drop' event for all cols
-<!-- Drop - drops the target  -->
-Browser won't allow to drop target on col itself
-so we hav to tell browset that 3 cols are the place where target can be dropped.
+To avoid repeating code for each column,
+I created a reusable function:
+addDragEventsOnColumn(column)
 
-appendchild adds the target inside col.
-and hence we can easily drag and drop target in any col.
 
-Now Main feature is DONE.
+6) appendChild() — MAIN DROP ACTION
+------------------------------------
+On drop:
+column.appendChild(dragElement);
 
-ADD NEW TASK 
-Create a new div 'modal' for 'add new task'
-two divs in modal -bg, -center
+This physically moves the dragged task div
+into whichever column was dropped on.
 
-Basic stylings 
-In modal bg {
-    we'll add backdrop-filter = blur(3px) 
-    to make background blur
-}
 
-Modal should be shown after clicking on add new task... one more click, modal should vanish
-Done
+7) ADD NEW TASK — MODAL SYSTEM
+-------------------------------
+Created a modal:
+<div class="modal">
+    <div class="bg"></div>
+    <div class="center">...</div>
+</div>
 
-Created sample task using div element in DOM.
-Made new task draggable.
-Now all task in col can be dragged into other cols.
+- modal.active { display: flex }
+- backdrop-filter: blur(3px) on .modal .bg for background blur
 
-Now We'll save the data in local storage.
-tasksData[col.id] = Array.from(tasks).map(t => { 
-                return {
-                    title: t.querySelector("h2").innerText,
-                    desc: t.querySelector("p").innerText
-                }
-            })
-created object.
-save this in local storage(convert tasksData into JSON.stringify(taskData))
+Modal opens on "Add New Task" button.
+Modal closes when clicking background.
+
+
+8) CREATING TASK DYNAMICALLY
+-----------------------------
+addTask(title, desc, column) does:
+- creates new .task div
+- sets draggable
+- adds delete button logic
+- appends to the selected column
+
+Every new task instantly becomes draggable.
+
+
+9) LOCAL STORAGE — SAVE EVERYTHING
+-----------------------------------
+Goal: board should remember tasks after refresh.
+
+Steps:
+1. Create tasksData object:
+   let tasksData = {};
+
+2. In updateTaskCount():
+   tasksData[col.id] = Array.from(tasks).map(task => ({
+       title: task.querySelector("h2").innerText,
+       desc: task.querySelector("p").innerText
+   }));
+
+3. Save to localStorage:
+   localStorage.setItem("tasks", JSON.stringify(tasksData));
+
+4. On load:
+   Read saved data:
+   const data = JSON.parse(localStorage.getItem("tasks"));
+
+   Loop through each saved column:
+   addTask(task.title, task.desc, column);
+
+
+10) FINAL FIXES MADE
+---------------------
+- Corrected columns.appendChild → column.appendChild
+- Fixed typos in IDs (add-new-task)
+- Ensured new tasks get drag listeners
+- Prevented hover flickering
+- Corrected task counts
+- Aligned modal styling properly
+
+
+11) WHAT I LEARNED
+-------------------
+This project helped me understand:
+- Real drag & drop logic
+- Structuring a JS project cleanly
+- Reusable functions
+- Saving UI state using localStorage
+- Debugging DOM issues
+- How small typos break big features
